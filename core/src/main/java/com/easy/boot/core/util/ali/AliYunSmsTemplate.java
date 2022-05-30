@@ -1,4 +1,4 @@
-package com.kai.boot.util.ali;
+package com.easy.boot.core.util.ali;
 
 import cn.hutool.core.lang.Assert;
 import com.alibaba.fastjson.JSON;
@@ -10,7 +10,9 @@ import com.aliyuncs.IAcsClient;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
-import com.kai.boot.api.exception.ApiException;
+import com.easy.boot.core.api.exception.ApiException;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.LinkedHashMap;
@@ -18,37 +20,31 @@ import java.util.Objects;
 
 /**
  * @author kai
- * @date 2022/3/12 14:47
+ * @date 2022/3/12 14:48
  */
+@Data
 @Slf4j
-public class AliYunSmsUtil {
+@AllArgsConstructor
+public class AliYunSmsTemplate {
 
-    //参考文档：https://help.aliyun.com/document_detail/55284.html
-
-    /**
-     * 阿里云短信accessKeyId
-     */
-    private static final String ACCESS_KEY_ID = "";
-    /**
-     * 阿里云短信accessKeySecret
-     */
-    private static final String ACCESS_KEY_SECRET = "";
+    private final AliYunSmsProperties aliYunSmsProperties;
 
     /**
      * 单个手机号短信发送
      *
-     * @param aliYunTemplate   阿里云短信模板枚举
-     * @param phone            要发送的手机号
-     * @param templateParamMap 短信模板参数map，模板无参数时传null或空map
+     * @param aliYunSmsChannelKey 阿里云短信模板key
+     * @param phone               要发送的手机号
+     * @param templateParamMap    短信模板参数map，模板无参数时传null或空map
      */
-    public static void sendSms(AliYunTemplate aliYunTemplate,
-                               String phone,
-                               LinkedHashMap<String, String> templateParamMap) {
-        Assert.notBlank(ACCESS_KEY_ID, "请配置阿里云短信AccessKeyId");
-        Assert.notBlank(ACCESS_KEY_SECRET, "请配置阿里云短信AccessKeySecret");
-        log.info("开始发送短信 => accessKeyId: {}, accessKeySecret: {}", ACCESS_KEY_ID, ACCESS_KEY_SECRET);
-        log.info("开始发送短信 => aliYunTemplate: {}, phone: {}, templateParamMap: {}", aliYunTemplate, phone, templateParamMap);
-        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", ACCESS_KEY_ID, ACCESS_KEY_SECRET);
+    public void sendSms(String aliYunSmsChannelKey,
+                        String phone,
+                        LinkedHashMap<String, String> templateParamMap) {
+        Assert.notBlank(aliYunSmsProperties.getAccessKeyId(), "请配置阿里云短信AccessKeyId");
+        Assert.notBlank(aliYunSmsProperties.getAccessKeySecret(), "请配置阿里云短信AccessKeySecret");
+        Assert.notNull(aliYunSmsProperties.getAliYunSmsChannelMap().get(aliYunSmsChannelKey), "没有该key: {" + aliYunSmsChannelKey + "} 的阿里云短信模板");
+        log.info("开始发送短信 => accessKeyId: {}, accessKeySecret: {}", aliYunSmsProperties.getAccessKeyId(), aliYunSmsProperties.getAccessKeySecret());
+        log.info("开始发送短信 => aliYunSmsChannelKey: {}, phone: {}, templateParamMap: {}", aliYunSmsChannelKey, phone, templateParamMap);
+        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", aliYunSmsProperties.getAccessKeyId(), aliYunSmsProperties.getAccessKeySecret());
         IAcsClient client = new DefaultAcsClient(profile);
         CommonRequest request = new CommonRequest();
         request.setSysMethod(MethodType.POST);
@@ -57,8 +53,8 @@ public class AliYunSmsUtil {
         request.setSysAction("sendSms");
         request.putQueryParameter("RegionId", "cn-hangzhou");
         request.putQueryParameter("PhoneNumbers", phone);
-        request.putQueryParameter("SignName", aliYunTemplate.getSignName());
-        request.putQueryParameter("TemplateCode", aliYunTemplate.getTemplateCode());
+        request.putQueryParameter("SignName", aliYunSmsProperties.getAliYunSmsChannelMap().get(aliYunSmsChannelKey).getSignName());
+        request.putQueryParameter("TemplateCode", aliYunSmsProperties.getAliYunSmsChannelMap().get(aliYunSmsChannelKey).getTemplateCode());
         if (Objects.nonNull(templateParamMap) && !templateParamMap.isEmpty()) {
             request.putQueryParameter("TemplateParam", JSONObject.toJSONString(templateParamMap));
         }
