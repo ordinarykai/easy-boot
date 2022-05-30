@@ -4,16 +4,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.kai.boot</groupId>
-        <artifactId>core</artifactId>
+        <groupId>com.easy.boot</groupId>
+        <artifactId>parent</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>util</artifactId>
-    <version>1.0.0</version>
     <name>util</name>
-    <description>Demo project for Spring Boot</description>
+    <packaging>pom</packaging>
+    <description>easy boot util</description>
 
     <properties>
         <lombok.version>1.18.20</lombok.version>

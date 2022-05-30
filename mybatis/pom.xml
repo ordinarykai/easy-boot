@@ -4,34 +4,21 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.kai.boot</groupId>
-        <artifactId>core</artifactId>
+        <groupId>com.easy.boot</groupId>
+        <artifactId>parent</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>mybatis</artifactId>
-    <version>1.0.0</version>
     <name>mybatis</name>
-    <description>Demo project for Spring Boot</description>
+    <packaging>jar</packaging>
+    <description>easy boot mybatis</description>
 
     <properties>
         <java.version>1.8</java.version>
-        <spring-boot.version>2.5.3</spring-boot.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <!-- mybatis-plus相关依赖-->
@@ -59,18 +46,5 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

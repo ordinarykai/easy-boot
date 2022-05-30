@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.kai.mybatis.MybatisPlusConfig
+com.easy.boot.mybatis.MybatisPlusConfig

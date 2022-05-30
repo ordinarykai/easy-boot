@@ -1,0 +1,12 @@
+spring:
+  servlet:
+    multipart:
+      # 限制文件上传大小
+      enabled: true
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+
+server:
+  servlet:
+    encoding:
+      force: true # 解决静态资源乱码问题
