@@ -3,7 +3,7 @@
     {
       "name": "logback.path",
       "type": "java.lang.String",
-      "description": "logback日志存储根目录"
+      "description": "logback日志存储根目录."
     }
   ]
 }
