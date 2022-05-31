@@ -4,14 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.easy.boot</groupId>
-        <artifactId>parent</artifactId>
+        <groupId>io.github.ordinarykai</groupId>
+        <artifactId>easy-boot-parent</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>util</artifactId>
-    <name>util</name>
+    <artifactId>easy-boot-util</artifactId>
+    <name>easy-boot-util</name>
     <packaging>pom</packaging>
     <description>easy boot util</description>
 

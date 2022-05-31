@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.easy.boot</groupId>
-    <artifactId>parent</artifactId>
+    <groupId>io.github.ordinarykai</groupId>
+    <artifactId>easy-boot-parent</artifactId>
     <version>1.0.0</version>
     <name>easy-boot</name>
     <packaging>pom</packaging>
@@ -17,9 +17,9 @@
     </properties>
 
     <modules>
-        <module>core</module>
-        <module>util</module>
-        <module>mybatis</module>
+        <module>easy-boot-core</module>
+        <module>easy-boot-util</module>
+        <module>easy-boot-mybatis</module>
     </modules>
 
     <dependencyManagement>
@@ -76,6 +76,30 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
     </build>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <!--写你自己的，这只是个例子-->
+    <scm>
+        <url>https://github.com/ordinarykai/easy-boot</url>
+        <connection>https://github.com/ordinarykai/easy-boot.git</connection>
+        <developerConnection>https://github.com/ordinarykai/easy-boot</developerConnection>
+    </scm>
+    <!--写你自己的，这只是个例子-->
+    <developers>
+        <developer>
+            <name>ordinarykai</name>
+            <email>2115114903@qq.com</email>
+            <url>https://github.com/ordinarykai/easy-boot</url>
+        </developer>
+    </developers>
 
 </project>

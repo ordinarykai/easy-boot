@@ -4,14 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.easy.boot</groupId>
-        <artifactId>parent</artifactId>
+        <groupId>io.github.ordinarykai</groupId>
+        <artifactId>easy-boot-parent</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>mybatis</artifactId>
-    <name>mybatis</name>
+    <artifactId>easy-boot-mybatis</artifactId>
+    <name>easy-boot-mybatis</name>
     <packaging>jar</packaging>
     <description>easy boot mybatis</description>
 

@@ -4,14 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.easy.boot</groupId>
-        <artifactId>parent</artifactId>
+        <groupId>io.github.ordinarykai</groupId>
+        <artifactId>easy-boot-parent</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>core</artifactId>
-    <name>core</name>
+    <artifactId>easy-boot-core</artifactId>
+    <name>easy-boot-core</name>
     <packaging>jar</packaging>
     <description>easy boot core</description>
 
