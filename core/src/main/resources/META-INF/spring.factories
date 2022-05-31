@@ -1,6 +1,7 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.easy.boot.core.auth.AuthConfig,\
 com.easy.boot.core.redis.RedisConfig,\
+com.easy.boot.core.log.WebLogConfig,\
 com.easy.boot.core.swagger.SwaggerConfig,\
 com.easy.boot.core.serializer.CustomJsonConfig,\
 com.easy.boot.core.serializer.LocalDateTimeSerializerConfig,\

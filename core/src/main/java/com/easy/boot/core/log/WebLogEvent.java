@@ -8,7 +8,7 @@ public class WebLogEvent {
     /**
      * 日志入库
      */
-    public void savaDatabase(WebLog webLog) {
+    public void after(WebLog webLog) {
 
     }
 

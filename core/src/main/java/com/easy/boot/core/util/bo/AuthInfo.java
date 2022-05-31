@@ -3,6 +3,7 @@ package com.easy.boot.core.util.bo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
@@ -23,7 +24,8 @@ public class AuthInfo {
     @ApiModelProperty(value = "当前登录者角色ID集合")
     private List<Integer> roleIds;
 
-    @ApiModelProperty(value = "当前登录者权限ID集合")
-    private List<Integer> permissionIds;
+    @NotEmpty
+    @ApiModelProperty(value = "当前登录者权限集合")
+    private List<String> permissions;
 
 }

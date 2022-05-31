@@ -26,10 +26,6 @@ import java.util.Set;
 public class AuthInterceptor implements HandlerInterceptor {
 
     /**
-     * 路径匹配器
-     */
-    private final AntPathMatcher antPathMatcher = new AntPathMatcher();
-    /**
      * 认证相关配置
      */
     private final AuthProperties authProperties;
@@ -38,7 +34,6 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws IOException {
-        String uri = request.getRequestURI();
         String token = request.getHeader(authProperties.getTokenName());
         // token为空，认证失败
         if (StringUtils.isBlank(token)) {
@@ -50,36 +45,11 @@ public class AuthInterceptor implements HandlerInterceptor {
             return failed(response, ResultCode.UNAUTHORIZED);
         }
         // 判断登录用户是否有权限访问该路径
-        List<String> allPermissions = getAllPermissions();
-        if (allPermissions.contains(uri) && !hasPermissions(uri)) {
+        PreAuthorize preAuthorize = handler.getClass().getAnnotation(PreAuthorize.class);
+        if (preAuthorize != null && authInfo.getPermissions().contains(preAuthorize.value())) {
             return failed(response, ResultCode.FORBIDDEN);
         }
         return true;
-    }
-
-    /**
-     * 当前用户权限集合
-     */
-    public Set<String> getPresentUserPermissions() {
-        return Collections.emptySet();
-    }
-
-    /**
-     * 所有权限集合
-     */
-    public List<String> getAllPermissions() {
-        return Collections.emptyList();
-    }
-
-    /**
-     * 判断登录用户是否有权限访问该uri
-     *
-     * @param uri 请求uri
-     * @return true：有权限，false：没有授权
-     */
-    private boolean hasPermissions(String uri) {
-        Set<String> permissions = getPresentUserPermissions();
-        return permissions.stream().anyMatch(pattern -> antPathMatcher.match(pattern, uri));
     }
 
     /**

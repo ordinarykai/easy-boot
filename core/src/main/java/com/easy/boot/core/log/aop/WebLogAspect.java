@@ -1,18 +1,24 @@
-package com.easy.boot.core.log;
+package com.easy.boot.core.log.aop;
 
 import com.easy.boot.core.auth.AuthUtil;
+import com.easy.boot.core.log.WebLog;
+import com.easy.boot.core.log.WebLogEvent;
+import com.easy.boot.core.log.WebLogProperties;
 import com.easy.boot.core.util.IpUtil;
 import com.easy.boot.core.util.ServletUtil;
 import com.easy.boot.core.util.bo.AuthInfo;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.aop.support.StaticMethodMatcherPointcut;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,54 +29,40 @@ import java.lang.reflect.Parameter;
 import java.util.*;
 
 /**
- * 日志切面
- *
  * @author kai
  * @date 2022/3/12 13:24
  */
 @Slf4j
-@Aspect
 @AllArgsConstructor
-public class WebLogAspect {
+public class WebLogAspect implements MethodInterceptor {
 
-    /**
-     * 是否打印切面日志
-     */
-    private static final boolean IS_PRINT_LOG = true;
     private final WebLogEvent webLogEvent;
+    private final WebLogProperties webLogProperties;
 
-    @Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping) " +
-            "||@annotation(org.springframework.web.bind.annotation.PostMapping) " +
-            "||@annotation(org.springframework.web.bind.annotation.GetMapping) " +
-            "||@annotation(org.springframework.web.bind.annotation.DeleteMapping) " +
-            "||@annotation(org.springframework.web.bind.annotation.PutMapping) ")
-    public void webLog() {
-    }
-
-    @Around("webLog()")
-    public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Override
+    public Object invoke(MethodInvocation invocation) throws Throwable {
+        if (!webLogProperties.isEnable()) {
+            return invocation.proceed();
+        }
         //获取当前请求对象
         HttpServletRequest request = ServletUtil.getRequest();
         //记录请求信息
         WebLog webLog = new WebLog();
-        Signature signature = joinPoint.getSignature();
-        MethodSignature methodSignature = (MethodSignature) signature;
-        Method method = methodSignature.getMethod();
+        Method method = invocation.getMethod();
         if (method.isAnnotationPresent(ApiOperation.class)) {
             ApiOperation log = method.getAnnotation(ApiOperation.class);
             webLog.setContents(log.value());
         }
         webLog.setIp(IpUtil.getIp(request));
         webLog.setMethod(request.getMethod());
-        webLog.setParameter(this.getParameter(method, joinPoint.getArgs()));
+        webLog.setParameter(this.getParameter(method, invocation.getArguments()));
         webLog.setUri(request.getRequestURI());
         webLog.setOperator(this.getOperator());
-        if (IS_PRINT_LOG) {
-            // 打印请求信息
-            log.info(webLog.toString());
-        }
-        webLogEvent.savaDatabase(webLog);
-        return joinPoint.proceed();
+        // 打印请求信息
+        log.info(webLog.toString());
+        // 自定义日志事件
+        webLogEvent.after(webLog);
+        return invocation.proceed();
     }
 
     /**
@@ -78,7 +70,7 @@ public class WebLogAspect {
      */
     private String getOperator() {
         AuthInfo authInfo = AuthUtil.get();
-        if(Objects.nonNull(authInfo)){
+        if (Objects.nonNull(authInfo)) {
             return authInfo.getId().toString();
         }
         return "";
