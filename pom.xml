@@ -9,6 +9,7 @@
     <name>easy-boot</name>
     <packaging>pom</packaging>
     <description>easy boot parent</description>
+    <url>https://github.com/ordinarykai/easy-boot</url>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -77,23 +78,30 @@
             </plugins>
         </pluginManagement>
 
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>sonatype-nexus-staging</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+        </plugins>
+
     </build>
 
     <licenses>
         <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <name>Apache 2.0 License</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
 
-    <!--写你自己的，这只是个例子-->
-    <scm>
-        <url>https://github.com/ordinarykai/easy-boot</url>
-        <connection>https://github.com/ordinarykai/easy-boot.git</connection>
-        <developerConnection>https://github.com/ordinarykai/easy-boot</developerConnection>
-    </scm>
-    <!--写你自己的，这只是个例子-->
     <developers>
         <developer>
             <name>ordinarykai</name>
@@ -101,5 +109,49 @@
             <url>https://github.com/ordinarykai/easy-boot</url>
         </developer>
     </developers>
+
+    <scm>
+        <url>https://github.com/ordinarykai/easy-boot</url>
+        <connection>scm:git:git@github.com/ordinarykai/easy-boot.git</connection>
+        <developerConnection>scm:git:git@github.com/ordinarykai/easy-boot.git</developerConnection>
+    </scm>
+
+    <issueManagement>
+        <url>https://github.com/ordinarykai/easy-boot/issues</url>
+    </issueManagement>
+
+    <profiles>
+        <profile>
+            <id>release-sign-artifacts</id>
+            <build>
+                <plugins>
+                    <!-- GPG -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>sonatype-nexus-snapshots</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>sonatype-nexus-staging</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 
 </project>
