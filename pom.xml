@@ -5,23 +5,44 @@
 
     <groupId>io.github.ordinarykai</groupId>
     <artifactId>easy-boot-parent</artifactId>
-    <version>1.0.0</version>
+    <version>1.4.0</version>
     <name>easy-boot</name>
     <packaging>pom</packaging>
     <description>easy boot parent</description>
     <url>https://github.com/ordinarykai/easy-boot</url>
 
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <spring-boot.version>2.4.5</spring-boot.version>
-    </properties>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>ordinarykai</name>
+            <email>2115114903@qq.com</email>
+            <url>https://github.com/ordinarykai/easy-boot</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:https://github.com/ordinarykai/easy-boot.git</connection>
+        <developerConnection>scm:git:git@github.com:ordinarykai/easy-boot.git</developerConnection>
+        <url>https://github.com/ordinarykai/easy-boot</url>
+    </scm>
 
     <modules>
         <module>easy-boot-core</module>
         <module>easy-boot-util</module>
         <module>easy-boot-mybatis</module>
     </modules>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <spring-boot.version>2.4.5</spring-boot.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -33,23 +54,145 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>com.easy.boot</groupId>
-                <artifactId>util</artifactId>
-                <version>${project.version}</version>
+                <groupId>io.github.ordinarykai</groupId>
+                <artifactId>easy-boot-util</artifactId>
+                <version>1.4.0</version>
                 <type>pom</type>
             </dependency>
             <dependency>
-                <groupId>com.easy.boot</groupId>
-                <artifactId>mybatis</artifactId>
-                <version>${project.version}</version>
+                <groupId>io.github.ordinarykai</groupId>
+                <artifactId>easy-boot-mybatis</artifactId>
+                <version>1.4.0</version>
             </dependency>
             <dependency>
-                <groupId>com.easy.boot</groupId>
-                <artifactId>core</artifactId>
-                <version>${project.version}</version>
+                <groupId>io.github.ordinarykai</groupId>
+                <artifactId>easy-boot-core</artifactId>
+                <version>1.4.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+
+    <profiles>
+        <profile>
+            <id>doclint-java8-disable</id>
+            <activation>
+                <jdk>[1.8,)</jdk>
+            </activation>
+            <properties>
+                <javadoc.opts>-Xdoclint:none</javadoc.opts>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <additionalparam>${javadoc.opts}</additionalparam>
+                            <charset>UTF-8</charset>
+                            <locale>zh_CN</locale>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <executable>C:/Program Files (x86)/gnupg/bin/gpg.exe</executable>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.3</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <version>2.5.1</version>
+                        <configuration>
+                            <autoVersionSubmodules>true</autoVersionSubmodules>
+                            <useReleaseProfile>false</useReleaseProfile>
+                            <releaseProfiles>release</releaseProfiles>
+                            <goals>deploy</goals>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>2.17</version>
+                        <configuration>
+                            <skip>true</skip>
+                            <configLocation>quality-checks/google_checks.xml</configLocation>
+                            <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                            <consoleOutput>true</consoleOutput>
+                            <failsOnError>true</failsOnError>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <build>
         <resources>
@@ -77,81 +220,6 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-
-        <plugins>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.7</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>sonatype-nexus-staging</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
-        </plugins>
-
     </build>
-
-    <licenses>
-        <license>
-            <name>Apache 2.0 License</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <name>ordinarykai</name>
-            <email>2115114903@qq.com</email>
-            <url>https://github.com/ordinarykai/easy-boot</url>
-        </developer>
-    </developers>
-
-    <scm>
-        <url>https://github.com/ordinarykai/easy-boot</url>
-        <connection>scm:git:git@github.com/ordinarykai/easy-boot.git</connection>
-        <developerConnection>scm:git:git@github.com/ordinarykai/easy-boot.git</developerConnection>
-    </scm>
-
-    <issueManagement>
-        <url>https://github.com/ordinarykai/easy-boot/issues</url>
-    </issueManagement>
-
-    <profiles>
-        <profile>
-            <id>release-sign-artifacts</id>
-            <build>
-                <plugins>
-                    <!-- GPG -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>sonatype-nexus-snapshots</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-                </snapshotRepository>
-                <repository>
-                    <id>sonatype-nexus-staging</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-    </profiles>
 
 </project>

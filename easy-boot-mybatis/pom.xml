@@ -6,8 +6,7 @@
     <parent>
         <groupId>io.github.ordinarykai</groupId>
         <artifactId>easy-boot-parent</artifactId>
-        <version>1.0.0</version>
-        <relativePath>../pom.xml</relativePath>
+        <version>1.4.0</version>
     </parent>
 
     <artifactId>easy-boot-mybatis</artifactId>

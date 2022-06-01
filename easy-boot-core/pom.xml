@@ -6,8 +6,7 @@
     <parent>
         <groupId>io.github.ordinarykai</groupId>
         <artifactId>easy-boot-parent</artifactId>
-        <version>1.0.0</version>
-        <relativePath>../pom.xml</relativePath>
+        <version>1.4.0</version>
     </parent>
 
     <artifactId>easy-boot-core</artifactId>
@@ -60,13 +59,13 @@
             <version>${springfox-boot-starter.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.easy.boot</groupId>
-            <artifactId>mybatis</artifactId>
+            <groupId>io.github.ordinarykai</groupId>
+            <artifactId>easy-boot-mybatis</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.easy.boot</groupId>
-            <artifactId>util</artifactId>
+            <groupId>io.github.ordinarykai</groupId>
+            <artifactId>easy-boot-util</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
         </dependency>
