@@ -4,7 +4,6 @@ import cn.hutool.extra.spring.SpringUtil;
 import com.easy.boot.core.api.GlobalExceptionHandler;
 import com.easy.boot.core.version.VersionRequestMappingHandlerMapping;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  * @author kai
  */
 @Configuration
-@EnableConfigurationProperties({UploadProperties.class})
 public class BootConfig {
 
     @Bean

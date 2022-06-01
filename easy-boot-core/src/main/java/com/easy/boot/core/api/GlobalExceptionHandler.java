@@ -1,7 +1,7 @@
 package com.easy.boot.core.api;
 
 import com.easy.boot.core.api.exception.ApiException;
-import com.easy.boot.core.constant.CommonConstant;
+import com.easy.boot.core.constant.Constants;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public Result<Void> exceptionHandler(Exception exception) {
         log.error("系统异常", exception);
-        return Result.failed(CommonConstant.PRO_ENV.equals(env) ? CommonConstant.DEFAULT_EXCEPTION_MSG : exception.getMessage());
+        return Result.failed(Constants.PRO_ENV.equals(env) ? Constants.DEFAULT_EXCEPTION_MSG : exception.getMessage());
     }
 
     @ExceptionHandler(NullPointerException.class)
@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
         String message = String.format("空指针异常：%s.%s at line %s)",
                 element.getClassName(), element.getMethodName(), element.getLineNumber());
         log.error("空指针异常", exception);
-        return Result.failed(CommonConstant.PRO_ENV.equals(env) ? CommonConstant.DEFAULT_EXCEPTION_MSG : message);
+        return Result.failed(Constants.PRO_ENV.equals(env) ? Constants.DEFAULT_EXCEPTION_MSG : message);
     }
 
     @ExceptionHandler(value = ApiException.class)

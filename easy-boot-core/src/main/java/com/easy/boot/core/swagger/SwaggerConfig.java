@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.easy.boot.core.constant.CommonConstant.TOKEN;
+import static com.easy.boot.core.constant.Constants.TOKEN;
 import static org.springframework.http.HttpMethod.*;
 
 /**

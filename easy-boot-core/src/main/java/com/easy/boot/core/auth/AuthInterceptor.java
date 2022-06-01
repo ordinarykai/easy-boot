@@ -5,16 +5,12 @@ import com.easy.boot.core.api.ResultCode;
 import com.easy.boot.core.util.bo.AuthInfo;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
 
 /**
  * 用户认证授权拦截器

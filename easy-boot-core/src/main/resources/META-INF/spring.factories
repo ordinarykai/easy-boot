@@ -5,6 +5,7 @@ com.easy.boot.core.log.WebLogConfig,\
 com.easy.boot.core.swagger.SwaggerConfig,\
 com.easy.boot.core.serializer.CustomJsonConfig,\
 com.easy.boot.core.serializer.LocalDateTimeSerializerConfig,\
+com.easy.boot.core.upload.UploadConfig,\
 com.easy.boot.core.WebMvcConfig,\
 com.easy.boot.core.BootConfig,\
 com.easy.boot.core.util.ali.AliYunSmsConfig
