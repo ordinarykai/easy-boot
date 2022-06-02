@@ -1,0 +1,54 @@
+{
+  "properties": [
+    {
+      "name": "generator.code.author",
+      "type": "java.lang.String",
+      "description": "作者."
+    },
+    {
+      "name": "generator.code.output-dir",
+      "type": "java.lang.String",
+      "description": "输出目录."
+    },
+    {
+      "name": "generator.code.parent",
+      "type": "java.lang.String",
+      "description": "父级包名."
+    },
+    {
+      "name": "generator.code.module-name",
+      "type": "java.lang.String",
+      "description": "模块名."
+    },
+    {
+      "name": "generator.code.table-prefix",
+      "type": "java.util.List",
+      "description": "过滤表前缀."
+    },
+    {
+      "name": "generator.code.include",
+      "type": "java.util.List",
+      "description": "包含的表名."
+    },
+    {
+      "name": "generator.doc.output-dir",
+      "type": "java.util.List",
+      "description": "输出目录."
+    },
+    {
+      "name": "generator.doc.file-name",
+      "type": "java.lang.String",
+      "description": "输出文件名."
+    },
+    {
+      "name": "generator.doc.version",
+      "type": "java.lang.String",
+      "description": "文档版本."
+    },
+    {
+      "name": "generator.doc.description",
+      "type": "java.lang.String",
+      "description": "文档描述."
+    }
+  ]
+}

@@ -24,7 +24,6 @@
         <google-zxing.version>3.5.0</google-zxing.version>
         <alibaba-easyexcel.version>3.1.0</alibaba-easyexcel.version>
         <apache-poi.version>4.1.2</apache-poi.version>
-        <screw-core.version>1.0.5</screw-core.version>
     </properties>
 
     <dependencies>
@@ -92,11 +91,6 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml-schemas</artifactId>
             <version>${apache-poi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.smallbun.screw</groupId>
-            <artifactId>screw-core</artifactId>
-            <version>${screw-core.version}</version>
         </dependency>
     </dependencies>
 
