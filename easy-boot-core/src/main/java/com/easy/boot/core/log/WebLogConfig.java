@@ -24,17 +24,16 @@ public class WebLogConfig {
     }
 
     @Bean
-    @ConditionalOnMissingBean(WebLogAspect.class)
-    public WebLogAspect webLogAspect(WebLogEvent webLogEvent, WebLogProperties webLogProperties) {
-        return new WebLogAspect(webLogEvent, webLogProperties);
+    public WebLogPointcutAdvisor webLogPointcutAdvisor(WebLogEvent webLogEvent, WebLogProperties webLogProperties) {
+        WebLogPointcutAdvisor advisor = new WebLogPointcutAdvisor(webLogProperties.getPointcut());
+        advisor.setAdvice(new WebLogAspect(webLogEvent, webLogProperties));
+        advisor.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return advisor;
     }
 
     @Bean
-    public WebLogPointcutAdvisor webLogPointcutAdvisor(WebLogAspect webLogAspect, WebLogProperties webLogProperties) {
-        WebLogPointcutAdvisor advisor = new WebLogPointcutAdvisor(webLogProperties.getPointcut());
-        advisor.setAdvice(webLogAspect);
-        advisor.setOrder(Ordered.HIGHEST_PRECEDENCE);
-        return advisor;
+    public TraceIdFilter traceIdFilter() {
+        return new TraceIdFilter();
     }
 
 }

@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 public class BootConfig {
 
     @Bean
-    public SpringUtil springUtil() {
+    public static SpringUtil springUtil() {
         return new SpringUtil();
     }
 

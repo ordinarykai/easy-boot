@@ -5,6 +5,9 @@ spring:
       enabled: true
       max-file-size: 1024MB
       max-request-size: 1024MB
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER # springboot2.6以上版本和swagger3.0冲突的问题
 
 server:
   servlet:
