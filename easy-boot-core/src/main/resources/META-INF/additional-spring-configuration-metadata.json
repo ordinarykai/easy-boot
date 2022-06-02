@@ -4,6 +4,11 @@
       "name": "logback.path",
       "type": "java.lang.String",
       "description": "logback日志存储根目录."
+    },
+    {
+      "name": "generator.permission.controller-package",
+      "type": "java.lang.String",
+      "description": "权限生成controller所在包."
     }
   ]
 }
