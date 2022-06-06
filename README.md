@@ -22,7 +22,7 @@ spring-boot项目脚手架
   <parent>
         <groupId>io.github.ordinarykai</groupId>
         <artifactId>easy-boot-parent</artifactId>
-        <version>1.7.0</version>
+        <version>1.8.0</version>
         <relativePath/>
   </parent>
     

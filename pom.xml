@@ -5,7 +5,7 @@
 
     <groupId>io.github.ordinarykai</groupId>
     <artifactId>easy-boot-parent</artifactId>
-    <version>1.7.0</version>
+    <version>1.8.0</version>
     <name>easy-boot</name>
     <packaging>pom</packaging>
     <description>easy boot parent</description>
@@ -56,18 +56,18 @@
             <dependency>
                 <groupId>io.github.ordinarykai</groupId>
                 <artifactId>easy-boot-util</artifactId>
-                <version>1.7.0</version>
+                <version>1.8.0</version>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>io.github.ordinarykai</groupId>
                 <artifactId>easy-boot-mybatis</artifactId>
-                <version>1.7.0</version>
+                <version>1.8.0</version>
             </dependency>
             <dependency>
                 <groupId>io.github.ordinarykai</groupId>
                 <artifactId>easy-boot-core</artifactId>
-                <version>1.7.0</version>
+                <version>1.8.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

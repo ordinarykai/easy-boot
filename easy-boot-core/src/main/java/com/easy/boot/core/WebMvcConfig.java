@@ -32,9 +32,11 @@ public class WebMvcConfig implements WebMvcConfigurer, WebMvcRegistrations {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 注册用户认证授权拦截器
-        registry.addInterceptor(authInterceptor)
-                .addPathPatterns(authProperties.getAddPathPatterns())
-                .excludePathPatterns(authProperties.getExcludePathPatterns());
+        if(authProperties.isEnable()){
+            registry.addInterceptor(authInterceptor)
+                    .addPathPatterns(authProperties.getAddPathPatterns())
+                    .excludePathPatterns(authProperties.getExcludePathPatterns());
+        }
     }
 
     @Override
