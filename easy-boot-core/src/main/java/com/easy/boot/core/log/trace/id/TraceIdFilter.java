@@ -1,4 +1,4 @@
-package com.easy.boot.core.log;
+package com.easy.boot.core.log.trace.id;
 
 import com.easy.boot.core.util.StringUtil;
 import org.slf4j.MDC;

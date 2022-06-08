@@ -8,4 +8,5 @@ com.easy.boot.core.serializer.LocalDateTimeSerializerConfig,\
 com.easy.boot.core.upload.UploadConfig,\
 com.easy.boot.core.WebMvcConfig,\
 com.easy.boot.core.BootConfig,\
-com.easy.boot.core.util.ali.AliYunSmsConfig
+com.easy.boot.core.util.ali.AliYunSmsConfig,\
+com.easy.boot.core.log.trace.id.TraceIdConfig

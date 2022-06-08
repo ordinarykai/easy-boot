@@ -3,6 +3,7 @@ package com.easy.boot.core.log;
 import com.easy.boot.core.log.aop.WebLogAspect;
 import com.easy.boot.core.log.aop.WebLogPointcutAdvisor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ import org.springframework.core.Ordered;
  */
 @Configuration
 @EnableConfigurationProperties(WebLogProperties.class)
+@ConditionalOnProperty(prefix = "web-log", name = {"enable"}, havingValue = "true", matchIfMissing = true)
 public class WebLogConfig {
 
     @Bean
@@ -29,11 +31,6 @@ public class WebLogConfig {
         advisor.setAdvice(new WebLogAspect(webLogEvent, webLogProperties));
         advisor.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return advisor;
-    }
-
-    @Bean
-    public TraceIdFilter traceIdFilter() {
-        return new TraceIdFilter();
     }
 
 }

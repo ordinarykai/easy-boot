@@ -1,6 +1,7 @@
 package com.easy.boot.core.swagger;
 
 import lombok.Data;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import springfox.documentation.service.Contact;
 
@@ -12,6 +13,7 @@ import springfox.documentation.service.Contact;
  */
 @Data
 @ConfigurationProperties(prefix = "swagger")
+@ConditionalOnProperty(prefix = "swagger", name = {"enable"}, havingValue = "true", matchIfMissing = true)
 public class SwaggerProperties {
 
     private boolean enable = false;

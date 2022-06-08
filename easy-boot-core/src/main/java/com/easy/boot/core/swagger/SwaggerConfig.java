@@ -1,6 +1,7 @@
 package com.easy.boot.core.swagger;
 
 import com.easy.boot.core.api.ResultCode;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,10 +29,11 @@ import static org.springframework.http.HttpMethod.*;
  */
 @Configuration
 @EnableConfigurationProperties(SwaggerProperties.class)
+@ConditionalOnProperty(prefix = "swagger", name = {"enable"}, havingValue = "true", matchIfMissing = true)
 public class SwaggerConfig {
 
     /**
-     * http://localhost:8080/swagger-ui/index.html
+     * <a href="http://localhost:8080/swagger-ui/index.html">...</a>
      */
     @Bean
     public Docket createApi(SwaggerProperties swaggerProperties) {

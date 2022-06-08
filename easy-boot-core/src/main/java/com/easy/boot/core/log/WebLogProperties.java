@@ -1,6 +1,7 @@
 package com.easy.boot.core.log;
 
 import lombok.Data;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -10,6 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Data
 @ConfigurationProperties(prefix = "web-log")
+@ConditionalOnProperty(prefix = "web-log", name = {"enable"}, havingValue = "true", matchIfMissing = true)
 public class WebLogProperties {
 
     /**
